@@ -9,7 +9,6 @@
 #include "../source/fonctions.h"
 #include <math.h>
 
-
 typedef struct Coordonnees position;
 struct Coordonnees {
     int x;
@@ -32,8 +31,8 @@ position positionSouris(int **monde, int idSouris)
         {
             if ( monde[i][j] == idSouris )
             {
-                positionSouris.x = i+1;
-                positionSouris.y = j+1;
+                positionSouris.x = i;
+                positionSouris.y = j;
             }
         }
     }
@@ -47,6 +46,8 @@ position positionChatProche(int **monde, position positionSouris)
     double distance, minDistance;
 
     minDistance = sqrt(WIDTH^2+HEIGHT^2);
+    positionChatProche.x = WIDTH;
+    positionChatProche.y = HEIGHT;
 
     for(i=0; i<HEIGHT; i++)
     {
@@ -54,19 +55,18 @@ position positionChatProche(int **monde, position positionSouris)
         {
             if ( monde[i][j] == CHAT )
             {
-                positionChat.x = i+1;
-                positionChat.y = j+1;
+                positionChat.x = i;
+                positionChat.y = j;
                 distance = calculDistance(positionSouris, positionChat);
                 if ( distance < minDistance )
                 {
                     minDistance = distance;
-                    positionChatProche.x = i+1;
-                    positionChatProche.y = i+1;
+                    positionChatProche.x = positionChat.x;
+                    positionChatProche.y = positionChat.y;
                 }
             }
         }
     }
-
     return positionChatProche;
 }
 
@@ -83,6 +83,19 @@ int souris3(int **monde)
     y = pSouris.y;
     X = pChat.x;
     Y = pChat.y;
+
+    /*      0 -------------------------> Y
+            |
+            | (X1,Y1)---(X1,y)------(X1,Y2)
+            |   |   Q1    |     Q2     |
+            |   |         |            |
+            | (x,Y1)----(x,y)-------(x,Y2)
+            |   |         |            |
+            |   |   Q4    |     Q3     |
+            | (X2,Y1)---(X2,y)------(X2,Y2)
+            v
+            X
+    */
 
     if ( x > X && y > Y ) // Quadrant n°1 (Nord/Ouest)
     {
@@ -105,7 +118,7 @@ int souris3(int **monde)
         else
             return LEFT;
     }
-    else if ( x > X && y < Y ) // Quadrant n°4 (Sud-Ouest)
+    else if ( x < X && y > Y ) // Quadrant n°4 (Sud-Ouest)
     {
         if ( abs(X - x) > abs(Y - y) )
             return UP;
@@ -115,16 +128,16 @@ int souris3(int **monde)
     else if ( x == X )
     {
         if ( y < Y )
-            return UP;
+            return LEFT;
         else
-            return DOWN;
+            return RIGHT;
     }
     else if ( y == Y )
     {
         if ( x < X )
-            return LEFT;
+            return UP;
         else
-            return RIGHT;
+            return DOWN;
     }
     else
         return SPOT; // là ma souris est très mal et il est déjà trop tard... (pSouris == pChat) :-DDDDD
