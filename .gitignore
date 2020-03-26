@@ -9,3 +9,5 @@ bin/Debug/GareAuxChats.exe
 bin/Debug/GareAuxChats.exe
 bin/Debug/GareAuxChats.exe
 *.o
+*.exe
+*.o
