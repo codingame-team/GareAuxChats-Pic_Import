@@ -75,7 +75,7 @@ int main()
 
         affichage_monde(monde);
         tour ++;
-        _sleep(50); //met le programme en pause pendant 1 sec
+        _sleep(10); //met le programme en pause pendant 1 sec
         supr_console();
     }
 
