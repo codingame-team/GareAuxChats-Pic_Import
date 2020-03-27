@@ -13,10 +13,10 @@ int ** creation_monde_vide(int hauteur, int largeur)
 {
     int **monde = NULL;
     int i;
-    
+
     //Allocation espace dynamique
     monde = (int **) malloc(hauteur * sizeof(int *));
-    
+
     for(i=0; i<hauteur; i++)
     {
         monde[i] = (int *) calloc(largeur, sizeof(int));
@@ -28,7 +28,7 @@ int ** creation_monde_vide(int hauteur, int largeur)
 void affichage_monde(int **monde)
 {
     int i,j;
-    
+
     for(i=0; i<HEIGHT; i++)
     {
         for(j=0; j<WIDTH; j++)
@@ -36,14 +36,19 @@ void affichage_monde(int **monde)
             if(monde[i][j] == CHAT)
             {
                 printf("C ");
+                //printf("C[%d][%d]",i,j);
             }
             else if(monde[i][j] == CASE_VIDE)
             {
+                //printf("  ");
                 printf("  ");
             }
             else
             {
-                printf("%d ",monde[i][j]);
+                if ( monde[i][j] != 9  )
+                    printf("%d ",monde[i][j]);
+                else
+                    printf("%d[%d][%d]",monde[i][j],i,j);
             }
         }
         printf("\n");
@@ -58,7 +63,7 @@ void desalocation_monde(int **monde)
     {
         free(monde[i]);
     }
-    
+
     free(monde);
 }
 
@@ -71,7 +76,7 @@ int condition_arret_partie(int **monde)
 {
     int i,j;
     int retour = 0; //0 si arret de partie et 1 sinon
-    
+
     for(i=0; i<HEIGHT; i++)
     {
         for(j=0; j<WIDTH; j++)
@@ -82,6 +87,6 @@ int condition_arret_partie(int **monde)
             }
         }
     }
-    
+
     return (retour);
 }

@@ -75,9 +75,11 @@ int main()
 
         affichage_monde(monde);
         tour ++;
-        _sleep(10); //met le programme en pause pendant 1 sec
+        _sleep(1); //met le programme en pause pendant 1 sec
         supr_console();
     }
+
+    printf("Fin Partie au tour %d", tour);
 
     desalocation_monde(monde);
     return 0;

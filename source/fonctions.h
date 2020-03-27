@@ -26,8 +26,8 @@ int souris5(int **monde);
 #include <unistd.h> //pour le sleep
 
 //MONDE
-#define HEIGHT 20 //hauteur (ligne)
-#define WIDTH 20 //largeur (colonne)
+#define HEIGHT 15 //hauteur (ligne)
+#define WIDTH 15 //largeur (colonne)
 
 #define CASE_VIDE 0
 #define CHAT 6
